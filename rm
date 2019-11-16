@@ -1,0 +1,70 @@
+#!/bin/bash
+
+#####
+# Personal rm script which really just moves files to a trash can.
+# Author: Kevin Filanowski
+# November 16, 2019.
+#####
+
+# Number of arguments.
+NUMBER_OF_FILES=$#
+
+# Location of the trash bin.
+# Change this if you want the trash bin in a different location.
+TRASHBIN=~/.trashbin
+
+# A counter to determine how many move operations were successful.
+COUNT=0
+
+# Check if a trash bin exists, otherwise create one in the specified location.
+if [[ ! -d $TRASHBIN ]]; then
+    echo "Trash bin does not exist, Creating trash bin at $TRASHBIN"
+    mkdir $TRASHBIN
+fi
+
+# Attempt to move files to the trash bin.
+echo "Attempting to move $NUMBER_OF_FILES item(s) to $TRASHBIN:"
+while [[ $# -gt 0 ]]; do
+    # Retrieve the filename.
+    FILENAME=$(basename $1)
+
+    # If a specified file does not exist, skip and continue.
+    if [[ ! -e $1 ]]; then
+        echo "File $1 does not exist. Skipping..."
+        shift 1
+        continue
+    fi
+
+    # If the file already exists in the trash bin, then
+    # add _copy to it until the name no longer exists in the trash bin.
+    # This prevents files from overwriting trash bin files.
+    while [[ -e ${TRASHBIN}/$FILENAME ]]; do
+        FILENAME=${FILENAME}_copy
+    done
+
+    # Move the file to the trash bin.
+    $(mv $1 ${TRASHBIN}/$FILENAME)
+
+    # Warn the user if the movement to the trash bin failed.
+    if [[ $? -eq 0 ]]; then
+        # Print which file moved, and if it was renamed in the trash bin.
+        if [[ ! $(dirname $1)/$(basename $1) == $(dirname $1)/$FILENAME ]]; then
+            echo "$1 --> $FILENAME"
+        else
+            echo "$1"
+        fi
+	# Increase the successful movement counter.
+        ((COUNT++))
+    else
+        echo "FAILED TO MOVE --> $1"
+    fi
+
+    # Shift to next argument given by the user.
+    shift 1
+done
+
+# Print how many files were successfully moved.
+echo "Moved $COUNT out of $NUMBER_OF_FILES item(s) to the trash bin."
+
+# Successful program completion.
+exit 0
