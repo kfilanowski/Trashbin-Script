@@ -5,7 +5,7 @@ Instead of `rm` permanently deleting files with no chance of recovery, I created
 # Author: Kevin Filanowski
 
 # Features
-*  Safety against duplicate file names and directories.
+* Safety against duplicate file names and directories.
   * Deleting a file or directory with a name that already exists in the trash bin will simply append `_copy` to the file until that filename becomes unique. This ensures we have a backup of all files we delete.
 
 * Creates a trash bin for you if a trash bin does not exist.
@@ -41,7 +41,7 @@ source ~/.bashrc
 ```
 
 # Troubleshooting
-It is possible the permissions on the file are incorrect, we need to be sure that the program is executable.
+It is possible the permissions on the file are incorrect, we need to be sure that the script is executable.
 You can fix this by typing:
 `chmod 755 rm`
-To add sufficient permissions.
+to add sufficient permissions to the script.
