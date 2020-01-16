@@ -1,6 +1,6 @@
 # Trashbin-Script
-Trash bin script to safeguard against permanently deleting files using rm by accident.
-Instead of `rm` permanently deleting files with no chance of recovery, I created a script that sends the files safely to a trash bin. 
+I created this trash bin script to safeguard against permanently deleting files using `rm` on my university server.
+I currently use this script, and thought to share it with any other students who may want to use it as well. 
 
 # Author: Kevin Filanowski
 
