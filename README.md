@@ -4,6 +4,12 @@ I currently use this script, and thought to share it with any other students who
 
 # Author: Kevin Filanowski
 
+# Table of Contents
+* [Features](#features)
+* [How to Use](#how-to-use)
+* [Installing](#installing)
+* [Troubleshooting](#troubleshooting)
+
 # Features
 * Safety against duplicate file names and directories.
   * Deleting a file or directory with a name that already exists in the trash bin will simply append `_copy` to the file until that filename becomes unique. This ensures we have a backup of all files we delete.
